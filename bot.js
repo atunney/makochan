@@ -25,6 +25,7 @@ client.once('ready', () => {
     client.user.setActivity('Persona 5');
 });
 
+// Various commands
 client.on('message',  message => {
     if (message.content.startsWith(config.prefix)) {
       if (message.content === '!ping') {
@@ -43,15 +44,14 @@ client.on('message',  message => {
       }
 
       if (message.content.toLowerCase() === config.prefix + 'commands') {
-
-      }
-
-      else {
-        message.channel.send("Please enter a valid command!");
+        message.channel.send(
+          "```\nMako-Chan Commands\n~~~~~~~~~~\n!persona - Sends a random Persona meme to the chat```"
+        );
       }
     }
 });
 
+// Persona themes
 client.on('message', message => {
 
     const serverQueue = queue.get(message.guild.id);
@@ -98,6 +98,16 @@ client.on('message', message => {
             break;
     }//p4d, etc. pq
 });
+
+// Persona facts
+client.on('message', message => {
+  const pfact = [];
+  pfact[0] = "P-Fact 1: *Persona 5*: The protagnist's Persona, Arsene, is named after the gentleman thief Arsene Lupin, created by French author Maurice Leblanc. Leblanc is the name of the coffee shop the protagonist resides in for the duration of the game.";
+  if (message.content.toLowerCase() === '!pfact') {
+    message.channel.send(pfact[0]);
+  }
+});
+
 
 //Credit play, skip, stop functionality: https://gabrieltanner.org/blog/dicord-music-bot
 client.on("message", async message => {
@@ -226,9 +236,3 @@ function songQueue(message, serverQueue) {
 
 // login to Discord with your app's token
 client.login(config.token);
-
-
-/* Todo:
-    Random Persona facts/trivia
-    Cats
-*/
