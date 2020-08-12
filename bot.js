@@ -1,3 +1,10 @@
+/* Todo:
+  -Cleanup code; better organization of everything
+  -Fix the double message posting when trying to play music
+  -Add more Persona facts
+*/
+
+
 // require the discord.js module
 const Discord = require('discord.js');
 
@@ -38,7 +45,7 @@ client.on('message',  message => {
       }
 
       if (message.content === config.prefix + 'persona') {
-          const ran = Math.floor(Math.random() * 43);
+          let ran = Math.floor(Math.random() * 43);
           console.log(ran);
           message.channel.send({files: ['./memes/' + ran + '.png']})
       }
@@ -54,7 +61,7 @@ client.on('message',  message => {
 // Persona themes
 client.on('message', message => {
 
-    const serverQueue = queue.get(message.guild.id);
+    let serverQueue = queue.get(message.guild.id);
     switch(message.content) {
         case '!p1':
             message.content = `!play https://www.youtube.com/watch?v=5Iaj92s-uJA`;
@@ -102,9 +109,15 @@ client.on('message', message => {
 // Persona facts
 client.on('message', message => {
   const pfact = [];
-  pfact[0] = "P-Fact 1: *Persona 5*: The protagnist's Persona, Arsene, is named after the gentleman thief Arsene Lupin, created by French author Maurice Leblanc. Leblanc is the name of the coffee shop the protagonist resides in for the duration of the game.";
+  pfact[0] = "P-Fact 1: *Persona 5*: The protagonist's Persona, Arsene, is named after the gentleman thief Arsene Lupin, created by French author Maurice Leblanc. Leblanc is the name of the coffee shop the protagonist resides in for the duration of the game.\n" 
+  pfact[1] = "P-Fact 2: *Persona 5*: Ryuji Sakamoto's Persona, Captain Kidd, is named after the Scottish pirate William Kidd.";
+  pfact[2] = "P-Fact 3: *Persona 5*: Ann Takamaki's Persona, Carmen, is named after the Gypsy Dancer seductress most notable in Bizet's opera.";
+  pfact[3] = "P-Fact 3: *Persona 5*: Morgana's Persona, Zorro, is named after the famous Californian vigilante.";
+
   if (message.content.toLowerCase() === '!pfact') {
-    message.channel.send(pfact[0]);
+    let ran = Math.floor(Math.random() * 0);
+    console.log(ran);
+    message.channel.send(pfact[ran], {files: ['./fact_images/' + ran + '.png']});
   }
 });
 
