@@ -5,6 +5,8 @@
 */
 
 
+const PFacts = require('./pfacts.js');
+
 // require the discord.js module
 const Discord = require('discord.js');
 
@@ -23,11 +25,17 @@ client.once('ready', () => {
     console.log('Logged in as ' + client.user.id + '!');
 
     const ran = Math.random();
-	if (ran >= 0 && ran < 0.50) {
+	if (ran >= 0 && ran < 0.33) {
+        // Enter desired channel ID in get parameter for when bot starts up
         client.channels.cache.get('717559240788541471').send('Charge, Johanna!');
     }
-    else {
+    else if (ran >= 0.33 && ran < 0.66) {
+        // Enter desired channel ID in get parameter for when bot starts up
         client.channels.cache.get('717559240788541471').send('Anat, come!');
+    }
+    else {
+              // Enter desired channel ID in get parameter for when bot starts up
+              client.channels.cache.get('717559240788541471').send('Go Agnes!');
     }
     client.user.setActivity('Persona 5');
 });
@@ -35,11 +43,6 @@ client.once('ready', () => {
 // Various commands
 client.on('message',  message => {
     if (message.content.startsWith(config.prefix)) {
-      if (message.content === '!ping') {
-          // send back "Pong." to the channel the message was sent in
-          message.channel.send('pong');
-      }
-
       if (message.content.toLowerCase() === 'hi mako-chan') {
           message.channel.send('Hi, <@' + message.author.id + '>!');
       }
@@ -50,9 +53,17 @@ client.on('message',  message => {
           message.channel.send({files: ['./memes/' + ran + '.png']})
       }
 
+      if (message.content.toLowerCase() === '!pfact') {
+        message.channel.send(PFacts.fact.randomFact(), PFacts.image.factImage());
+      }
+
       if (message.content.toLowerCase() === config.prefix + 'commands') {
         message.channel.send(
-          "```\nMako-Chan Commands\n~~~~~~~~~~\n!persona - Sends a random Persona meme to the chat```"
+          "```\nMako-Chan Commands\
+          \n~~~~~~~~~~\
+          \n!persona - Sends a Persona meme to the chat\
+          \n!pfact - Sends a Persona trivia fact to the chat\
+          \n!play <YouTube link> - Plays a song from a YouTube link in a voice channel```"
         );
       }
     }
@@ -105,22 +116,6 @@ client.on('message', message => {
             break;
     }//p4d, etc. pq
 });
-
-// Persona facts
-client.on('message', message => {
-  const pfact = [];
-  pfact[0] = "P-Fact 1: *Persona 5*: The protagonist's Persona, Arsene, is named after the gentleman thief Arsene Lupin, created by French author Maurice Leblanc. Leblanc is the name of the coffee shop the protagonist resides in for the duration of the game.\n" 
-  pfact[1] = "P-Fact 2: *Persona 5*: Ryuji Sakamoto's Persona, Captain Kidd, is named after the Scottish pirate William Kidd.";
-  pfact[2] = "P-Fact 3: *Persona 5*: Ann Takamaki's Persona, Carmen, is named after the Gypsy Dancer seductress most notable in Bizet's opera.";
-  pfact[3] = "P-Fact 3: *Persona 5*: Morgana's Persona, Zorro, is named after the famous Californian vigilante.";
-
-  if (message.content.toLowerCase() === '!pfact') {
-    let ran = Math.floor(Math.random() * 0);
-    console.log(ran);
-    message.channel.send(pfact[ran], {files: ['./fact_images/' + ran + '.png']});
-  }
-});
-
 
 //Credit play, skip, stop functionality: https://gabrieltanner.org/blog/dicord-music-bot
 client.on("message", async message => {
